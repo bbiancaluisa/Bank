@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Add information for payment:</h1>
+
+    <form action="#" th:action="@{/addPaymentData}" th:object="${newPaymentData}" method="post">
+        <tr>
+            <td>Bank: </td>
+            <td><input required type="text" name="bank" th:field="*{bank}" /></td>
+        </tr>
+        <br><br>
+        <tr>
+            <td>Card number (only digits) </td>
+            <td><input required type="text" name="cardNo" id="cardNo0" minlength=4 maxlength=4 pattern="[0-9]{4}" style="width: 40px" th:field="*{cardNo0}" /></td>
+            <td>-</td>
+            <td><input required type="text" name="cardNo" id="cardNo1" minlength=4 maxlength=4 pattern="[0-9]{4}" style="width: 40px" th:field="*{cardNo1}" /></td>
+            <td>-</td>
+            <td><input required type="text" name="cardNo" id="cardNo2" minlength=4 maxlength=4 pattern="[0-9]{4}" style="width: 40px" th:field="*{cardNo2}" /></td>
+            <td>-</td>
+            <td><input required type="text" name="cardNo" id="cardNo3" minlength=4 maxlength=4 pattern="[0-9]{4}" style="width: 40px" th:field="*{cardNo3}" /></td>
+        </tr>
+        <br><br>
+        <tr>
+            <td>Expiration date: </td>
+            <td><input required type="month" name="expirationDate" maxlength=50 th:field="*{expirationDate}" /></td>
+        </tr>
+        <br><br>
+        <input type="submit" value="Submit" />
+    </form>
+
+    <h1>Upload file for multiple payments (*.csv):</h1>
+
+    <form action="#" th:action="@{/uploadPaymentData}" method="post" enctype="multipart/form-data" >
+        <input required type="file" ID="fileSelect" name="fileSelect" accept=".csv" />
+        <br><br>
+        <input type="submit" value="Submit" />
+    </form>
+
+    <h1>Saved data payment: </h1>
+
+    <table border="1">
+        <tr>
+            <th>Bank</th>
+            <th>Card number</th>
+            <th>Expiration date</th>
+        </tr>
+        <tr th:each = "savedPaymentDataRecord: ${savedPaymentData}">
+            <td th:text="${savedPaymentDataRecord.bank}" />
+            <td th:text="${savedPaymentDataRecord.cardInfoDetails}" />
+            <td th:text="${savedPaymentDataRecord.expirationDate}" />
+        </tr>
+    </table>
+</body>
+</html>
